@@ -1,0 +1,25 @@
+[build-system]
+requires = ["maturin>=1.9,<2"]
+build-backend = "maturin"
+
+[project]
+name = "ligenum"
+dynamic = ["version"]
+
+[tool.maturin]
+manifest-path = "crates/ligand-graph/Cargo.toml"
+python-source = "src"
+module-name = "ligenum._ligand_graph"
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[tool.pixi.dependencies]
+python = "3.14.*"
+maturin = ">=1.9,<2"
+pip = ">=26.2.2,<27"
+
+[tool.pixi.activation.env]
+PYO3_PYTHON = "$CONDA_PREFIX/bin/python"
+CARGO_TARGET_AARCH64_APPLE_DARWIN_RUNNER = "env DYLD_FALLBACK_LIBRARY_PATH=$CONDA_PREFIX/lib"
